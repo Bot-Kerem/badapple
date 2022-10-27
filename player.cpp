@@ -84,6 +84,8 @@ int main(int argc, char** argv)
 	
 	//cv2::VideoCapture("./badapple.mp4");
 	//Video vid(argv[1]);
+	ColorPrint("Opening: ", "#FF0000");
+	GradientPrint(argv[1], "#00FF00", "#0000FF");
 	Video vid(argv[1], argc == 3 ? std::atof(argv[2]) : 2);
 
 	vid.Play();
