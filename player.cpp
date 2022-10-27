@@ -3,10 +3,7 @@
 
 #include <unistd.h>
 #include <sys/ioctl.h>
-#include <time.h>
 
-#include <chrono>
-#include <iostream>
 #include <sys/time.h>
 
 #include <opencv2/opencv.hpp>
