@@ -24,7 +24,6 @@ class Video
 		int scaled_h;
 		double r;
 
-
 		Video(std::string videoPath, double r): r{r}
 		{
 			ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
@@ -36,7 +35,6 @@ class Video
 			cap = cv::VideoCapture(videoPath);
 			fps = 1.0 / static_cast<double>(cap.get(cv::CAP_PROP_FPS)); 
 
-			//cv::namedWindow(window_name, cv::WINDOW_NORMAL); //create a window
 		}
 		
 		void Play()
@@ -47,17 +45,14 @@ class Video
 			gettimeofday(&start, NULL);
 			while (true)
 			{
-				
-				//printf("yukseklik: %i genislik: %i\n", scaled_h, scaled_w);
-				
-				//printf("r: %i c: %i\n", scaled_w, scaled_h);
+
 				bool bSuccess = true;
 				double secs = (double)(stop.tv_usec - start.tv_usec) / 1000000 + (double)(stop.tv_sec - start.tv_sec);
 				if(secs > fps)
 				{
 					cv::Mat frame;
 					cv::Mat scaled;
-					bSuccess = cap.read(frame); // read a new frame from video
+					bSuccess = cap.read(frame);
 					scaled_w = (static_cast<float>(scaled_h) / static_cast<float>(frame.rows)) * static_cast<float>(frame.cols);
 					cv::resize(frame, scaled, {scaled_w * r, scaled_h});
 					int i = 0;
@@ -72,21 +67,10 @@ class Video
 					gotoxy(0,0);
 					gettimeofday(&start, NULL);
 				}
-				//printf("time: %lu\n", (stop.tv_sec - start.tv_sec) * 100 + stop.tv_usec - start.tv_usec);
-				//std::cout << (stop.tv_sec - start.tv_sec) * 1000000 + stop.tv_usec - start.tv_usec << '\n';
-
 				if (bSuccess == false) 
 				{
 					printf("Found the end of the video");
 					break;
-				}
-
-
-				//if (cv::waitKey(10) == 27)
-				{
-				//	printf("Esc key is pressed by user. Stoppig the video\n");
-				//break;
-				
 				}
 				gettimeofday(&stop, NULL);
 
